@@ -10,8 +10,11 @@ import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import Loader from "./components/Loader";
 import Background from "./components/Background";
+import useScrollReveal from "./hooks/useScrollReveal";
 
 function App() {
+  useScrollReveal();
+
   return (
     <>
       <Cursor />
