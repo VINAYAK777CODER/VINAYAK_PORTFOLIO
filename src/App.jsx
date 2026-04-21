@@ -12,9 +12,11 @@ import Loader from "./components/Loader";
 import Background from "./components/Background";
 import ScrollProgress from "./components/ScrollProgress";
 import useScrollReveal from "./hooks/useScrollReveal";
+import useMagneticTilt from "./hooks/useMagneticTilt";
 
 function App() {
   useScrollReveal();
+  useMagneticTilt();
 
   return (
     <>
