@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import Loader from "./components/Loader";
 import Background from "./components/Background";
+import ScrollProgress from "./components/ScrollProgress";
 import useScrollReveal from "./hooks/useScrollReveal";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <>
+      <ScrollProgress />
       <Cursor />
       <Loader />
       <Background />

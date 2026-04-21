@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Projects() {
   const [filter, setFilter] = useState("all");
@@ -42,6 +42,24 @@ export default function Projects() {
     filter === "all" ? true : p.cat.includes(filter)
   );
 
+  // 3D Tilt
+  function handleMouseMove(e, cardEl) {
+    const rect = cardEl.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    cardEl.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateY(-6px) scale(1.02)`;
+    // Move glow with mouse
+    const glowX = (x + 0.5) * 100;
+    const glowY = (y + 0.5) * 100;
+    cardEl.style.setProperty("--glow-x", `${glowX}%`);
+    cardEl.style.setProperty("--glow-y", `${glowY}%`);
+  }
+  function handleMouseLeave(cardEl) {
+    cardEl.style.transform = "";
+    cardEl.style.removeProperty("--glow-x");
+    cardEl.style.removeProperty("--glow-y");
+  }
+
   return (
     <section id="projects">
       <div className="reveal">
@@ -63,7 +81,13 @@ export default function Projects() {
 
       <div className="projects-grid reveal">
         {filtered.map((p, i) => (
-          <div key={i} className="project-card">
+          <div
+            key={i}
+            className="project-card"
+            onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+            onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+          >
+            <div className="project-card-glow" />
             <div className="project-header">
               <span className="project-icon">📂</span>
               <span className={`project-type ${p.typeClass}`}>{p.typeLabel}</span>
